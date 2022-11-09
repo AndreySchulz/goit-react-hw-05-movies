@@ -1,14 +1,25 @@
 import MovieDetails from '../Pages/MovieDetails';
 import SearchMovie from 'Pages/SearchMovie';
 import { Outlet, Route, Routes } from 'react-router-dom';
-import Navi from './Nivi/Navi';
-import Home from 'Pages/Home';
+import { lazy, Suspense } from 'react';
+import Loader from './Loader/Loader';
+// import Navi from './Nivi/Navi';
+// import Home from 'Pages/Home';
+// import Cast from 'Pages/Cast';
+// import Reviews from 'Pages/Reviews';
+
+const Navi = lazy(() => import('./Nivi/Navi'));
+const Home = lazy(() => import('Pages/Home'));
+const Cast = lazy(() => import('Pages/Cast'));
+const Reviews = lazy(() => import('Pages/Reviews'));
 
 const MainLayout = () => {
   return (
     <>
       <Navi />
-      <Outlet />
+      <Suspense fallback={<Loader />}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };
@@ -20,12 +31,12 @@ export function App() {
         <Route index element={<Home />} />
         <Route path="movies" element={<SearchMovie />} />
         <Route path="movies/:movieId" element={<MovieDetails />}>
-          <Route path="cast" />
-          <Route path="reviews" />
+          <Route path="cast" element={<Cast />} />
+          <Route path="reviews" element={<Reviews />} />
         </Route>
         <Route path="trending" />
       </Route>
-      <Route path="*" element={<Home />} />
+      <Route path="*" element={<MainLayout />} />
     </Routes>
   );
 }

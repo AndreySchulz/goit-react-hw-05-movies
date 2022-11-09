@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams, Outlet, Link } from 'react-router-dom';
 import { searchMovieToIdApi } from '../utils/MovieApi';
+
 const MovieDetails = () => {
   const START_URL = 'https://image.tmdb.org/t/p/w500/';
   const [details, setDetails] = useState([]);
@@ -10,7 +11,7 @@ const MovieDetails = () => {
   useEffect(() => {
     searchMovieToIdApi(movieId).then(data => setDetails(data));
   }, [movieId]);
-  console.log(details);
+  // console.log(details);
   const { title, poster_path, vote_average, overview, genres } = details;
   return (
     <>
@@ -20,15 +21,17 @@ const MovieDetails = () => {
       <h2>Overview</h2>
       <p>{overview}</p>
       <h2>Ganres</h2>
-      <ul>{genres && genres.map(genre => <li>{genre.name}</li>)}</ul>
+      <ul>
+        {genres && genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
+      </ul>
 
       <h3>Additional information</h3>
       <ul>
         <li>
-          <Link to="cast" />
+          <Link to="cast">Cast</Link>
         </li>
         <li>
-          <Link to="cast" />
+          <Link to="reviews">Reviews</Link>
         </li>
       </ul>
 

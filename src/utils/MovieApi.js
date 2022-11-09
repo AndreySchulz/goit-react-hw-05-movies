@@ -32,3 +32,21 @@ export const searchMovieToIdApi = movie_id => {
     })
     .then(res => res.data);
 };
+export const searchMovieCastApi = movie_id => {
+  return axios
+    .get(`movie/${movie_id}/credits`, {
+      params: {
+        api_key: API_KEY,
+      },
+    })
+    .then(res => res.data);
+};
+export const searchMovieReviewsApi = movie_id => {
+  return axios
+    .get(`movie/${movie_id}/reviews`, {
+      params: {
+        api_key: API_KEY,
+      },
+    })
+    .then(res => res.data);
+};
