@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 const MovieItem = ({ movie }) => {
-  const { id, backdrop_path, title } = movie;
+  const { id, title } = movie;
 
   return (
     <li key={id}>

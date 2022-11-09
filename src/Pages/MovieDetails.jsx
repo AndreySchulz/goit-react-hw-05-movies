@@ -10,9 +10,11 @@ const MovieDetails = () => {
     searchMovieToIdApi(movieId).then(data => setDetails(data));
   }, [movieId]);
   console.log(details);
+  const { title, backdrop_path, poster_path } = details;
   return (
     <>
-      <h1>{movieId}</h1>
+      <h1>{title}</h1>
+      <img href={poster_path}></img>
 
       <h2>Ganres</h2>
 
